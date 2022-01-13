@@ -11,8 +11,24 @@ using namespace std;
 int main( int argc, char* argv[] )
 {
     // just to get you started, this is how to refer to the arguments that were passed
-    for (int arg = 0; arg < argc; ++arg)
-            std::cout << "argv[" << arg << "]: " << argv[arg] << '\n' ;
-
+    for (int arg = 0; arg < argc; ++arg){
+        string line;
+        int count = 0;
+        if(arg == 0){
+            std::cout << "program: " << argv[arg] << '\n' ;
+        }else{
+            ifstream inFile(argv[arg]);
+            if(inFile.fail() || inFile.peek() == EOF){
+                std::cout << " " << argv[arg] << ": -1" << '\n' ;
+            }else{
+                while(inFile.peek() != EOF){
+                    getline(inFile, line);
+                    count++;
+                }
+                inFile.close();
+                std::cout << " " << argv[arg] << ": " << count << '\n' ;
+            }    
+        }
+    }
     exit(0); // this means that the program executed correctly!
 }
